@@ -10,6 +10,10 @@ const userSchema = mongoose.Schema({
         unique: true,
         minlength: 6
     },
+    email: {
+        type: String,
+        unique: true
+    },
     passwordHash: String,
 })
 
