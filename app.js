@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const signUpRouter = require('./controllers/signup')
 const signInRouter = require('./controllers/signin')
 const usersRouter = require('./controllers/users')
+const predictRouter = require('./controllers/predict')
 
 const unknownEndpoint = require('./utils/errors/unknownEndpoint')
 
@@ -30,6 +31,7 @@ app.use(express.static('build'))
 app.use('/api/signup', signUpRouter)
 app.use('/api/signin', signInRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/predict', predictRouter)
 
 
 app.use(unknownEndpoint)

@@ -19,7 +19,8 @@ router.post('/', async (req, res, next) => {
     
     res.json(savedUser);
   }catch(err){
-    next(err)
+    console.log(err)
+    res.status(422).send({err})
   }
 });
 
