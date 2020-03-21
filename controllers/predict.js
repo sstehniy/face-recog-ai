@@ -72,7 +72,7 @@ router.post('/file', upload.single('img'), async (req, res, next) => {
   } catch (err) {
     return new Error(err);
   }finally{
-    await fs.unlink('public/' + req.file.filename, () => {
+    await fs.unlinkSync('public/' + req.file.filename, () => {
         console.log('file deleted');
       });
   }
