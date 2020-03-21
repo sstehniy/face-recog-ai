@@ -66,9 +66,7 @@ router.post('/file', upload.single('img'), async (req, res, next) => {
       'e466caa0619f444ab97497640cefc4dc',
       imagePath
     );
-    await fs.unlink('public/' + req.file.filename, () => {
-      console.log('file deleted');
-    });
+    
 
     res.status(200).send(response);
   } catch (err) {
