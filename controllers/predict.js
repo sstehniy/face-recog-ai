@@ -2,6 +2,7 @@ require('dotenv').config();
 const Clarifai = require('clarifai');
 const router = require('express').Router();
 const multer = require('multer');
+const fs = require('fs')
 const uuidv4 = require('uuid/v4');
 
 const Image = require('../models/image')
@@ -60,6 +61,7 @@ router.post('/file',upload.single('img') ,async (req, res, next) => {
           'e466caa0619f444ab97497640cefc4dc',
           imagePath
         );
+        fs.unlinkSync(imagePath)
         res.status(200).send(response);
       } catch (err) {
         return new Error(err);
