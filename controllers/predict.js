@@ -61,6 +61,7 @@ router.post('/file',upload.single('img') ,async (req, res, next) => {
           'e466caa0619f444ab97497640cefc4dc',
           imagePath
         );
+        
         fs.unlink(imagePath)
         res.status(200).send(response);
       } catch (err) {
