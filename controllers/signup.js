@@ -6,21 +6,20 @@ router.post('/', async (req, res, next) => {
   try {
     const body = req.body;
 
-    const passwordHash = await bcrypt.hash(body.password, 10)
+    const passwordHash = await bcrypt.hash(body.password, 10);
 
     const user = new User({
-        name: body.name,
-        username: body.username,
-        email: body.email,
-        passwordHash: passwordHash
-    })
+      name: body.name,
+      username: body.username,
+      email: body.email,
+      passwordHash: passwordHash
+    });
 
-    const savedUser = await user.save()
-    
+    const savedUser = await user.save();
+
     res.json(savedUser);
-  }catch(err){
-    console.log(err)
-    res.status(422).send({err})
+  } catch (err) {
+    res.status(422).send({ err });
   }
 });
 

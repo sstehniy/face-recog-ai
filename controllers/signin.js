@@ -6,10 +6,10 @@ require('dotenv').config();
 
 router.post('/', async (req, res, next) => {
   const  body  = req.body;
-  console.log(body)
+  
 
   const user = await User.findOne({ username: body.username });
-  console.log(user)
+  
   const passwordCorrect =
     user === null
       ? false

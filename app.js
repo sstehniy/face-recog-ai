@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const morgan = require('morgan')
 
 const signUpRouter = require('./controllers/signup')
 const signInRouter = require('./controllers/signin')
@@ -26,7 +27,14 @@ mongoose
 
 app.use(cors())
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(express.static('build'))
+app.use('/static', express.static('public'))
+morgan.token('data', (req, res)=> { return JSON.stringify(req.body) })
+app.use(morgan(':method :url :status :response-time ms - :data - :res[content-length]'))
+
 
 app.use('/api/signup', signUpRouter)
 app.use('/api/signin', signInRouter)
