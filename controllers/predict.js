@@ -59,7 +59,7 @@ router.post('/url', async (req, res, next) => {
 router.post('/file', upload.single('img'), async (req, res, next) => {
   if (!req.file) return next(new Error('Select a file!'));
   let imagePath =
-    'http' + '://' + req.get('host') + '/static/' + req.file.filename;
+    req.protocol + '://' + req.get('host') + '/static/' + req.file.filename;
   console.log(imagePath);
   try {
     const response = await app.models.predict(
