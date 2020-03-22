@@ -7,7 +7,7 @@ const uuidv4 = require('uuid/v4');
 
 const Image = require('../models/image');
 
-const DIR = './public/';
+const DIR = './public/images';
 
 const app = new Clarifai.App({
   apiKey: process.env.CLARIFAI_KEY
@@ -67,7 +67,7 @@ router.post('/file', upload.single('img'), async (req, res, next) => {
       imagePath
     );
     
-    await fs.unlink(`public/${req.file.filename}`, ()=>{console.log('file deleted')})
+    await fs.unlink(`./public/${req.file.filename}`, ()=>{console.log('file deleted')})
 
     res.status(200).send(response);
   } catch (err) {
