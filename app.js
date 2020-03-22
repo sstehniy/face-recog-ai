@@ -5,9 +5,13 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 
+
+
+
 const signUpRouter = require('./controllers/signup')
 const signInRouter = require('./controllers/signin')
 const usersRouter = require('./controllers/users')
+const imagesRouter = require('./controllers/images')
 const predictRouter = require('./controllers/predict')
 
 const unknownEndpoint = require('./utils/errors/unknownEndpoint')
@@ -31,6 +35,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(express.static('build'))
+
 app.use('/static', express.static('public/images'))
 morgan.token('data', (req, res)=> { return JSON.stringify(req.body) })
 app.use(morgan(':method :url :status :response-time ms - :data - :res[content-length]'))
@@ -39,6 +44,7 @@ app.use(morgan(':method :url :status :response-time ms - :data - :res[content-le
 app.use('/api/signup', signUpRouter)
 app.use('/api/signin', signInRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/images', imagesRouter)
 app.use('/api/predict', predictRouter)
 
 

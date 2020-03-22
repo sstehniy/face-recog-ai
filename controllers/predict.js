@@ -6,6 +6,7 @@ const fs = require('fs');
 const uuidv4 = require('uuid/v4');
 
 const Image = require('../models/image');
+const User = require('../models/user');
 
 const DIR = './public/images';
 
@@ -58,24 +59,40 @@ router.post('/url', async (req, res, next) => {
 
 router.post('/file', upload.single('img'), async (req, res, next) => {
   if (!req.file) return next(new Error('Select a file!'));
+  const user = await User.findOne({
+    username: JSON.parse(req.body.user).username
+  });
+  console.log(user);
+
   let imagePath =
     req.protocol + '://' + req.get('host') + '/static/' + req.file.filename;
   console.log(imagePath);
   try {
+    console.log(req.file.path);
+
+    let newImage = new Image({
+      img: {
+        path: imagePath,
+        
+      },
+      user: user._id
+    });
+    const savedImage = await newImage.save();
+    
+    console.log('saved image', savedImage);
+
+    user.images = [...user.images, savedImage._id];
+    await user.save();
+    console.log(user);
     const response = await app.models.predict(
       'e466caa0619f444ab97497640cefc4dc',
       imagePath
     );
-    
 
     res.status(200).send(response);
   } catch (err) {
     return new Error(err);
   }
-  // } finally {
-  //   await fs.unlink(`./public/images/${req.file.filename}`, ()=>{console.log('file deleted')})
-
-  // }
 });
 
 module.exports = router;
