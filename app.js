@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(express.static('build'))
-app.use('/static', express.static('public'))
+app.use('/static', express.static('public/images'))
 morgan.token('data', (req, res)=> { return JSON.stringify(req.body) })
 app.use(morgan(':method :url :status :response-time ms - :data - :res[content-length]'))
 
