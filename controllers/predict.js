@@ -67,11 +67,13 @@ router.post('/file', upload.single('img'), async (req, res, next) => {
       imagePath
     );
     
-    fs.unlinkSync(`./public/images/${req.file.filename}`, ()=>{console.log('file deleted')})
 
     res.status(200).send(response);
   } catch (err) {
     return new Error(err);
+  } finally {
+    fs.unlinkSync(`./public/images/${req.file.filename}`, ()=>{console.log('file deleted')})
+
   }
 });
 
