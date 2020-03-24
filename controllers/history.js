@@ -14,8 +14,13 @@ router.get('/:id', async (req, res, next)=>{
             
             paths.push(image.img.path)
             setTimeout(()=>{
-                fs.unlinkSync('./public/images/' + image.img.name)
-            }, 50000)
+                try{
+
+                    fs.unlinkSync('./public/images/' + image.img.name)
+                }catch(err){
+                    return
+                }
+            }, 10000)
         })
         
          res.status(201).json(paths)
